@@ -36,14 +36,20 @@ export default function Canvas()
     canvas.height = window.innerHeight
     canvas.width = window.innerWidth
 
-    const canvasimg = localStorage.getItem("canvasimg")
-    if (canvasimg) {
-      updateImage(canvasimg)
-    }
+    axios.post("chat/room/get_canvas/", {
+      "room_name": room_name
+    })
+    .then(({data}) => {
+      if(data.image) {
+        updateImage(data.image)
+      }
+    })
+    .catch((err) => {
+      alert("Error")
+    })
   }, [ctx])
 
   useEffect(() => {
-    console.log(room_name)
     socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${room_name}/?token=${token}`)
     socketRef.current.onopen = (e) => {
       console.log('open', e)

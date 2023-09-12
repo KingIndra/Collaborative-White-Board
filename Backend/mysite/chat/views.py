@@ -15,6 +15,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from .serializers import RoomSerializer
+from .models import Room, Canvas
 
 
 @api_view(['POST'])
@@ -28,3 +29,15 @@ def create_room(request):
     else:
         return Response({"eroor error"})
     return Response({"room_name": room.name, "created_by":room.user.username})
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def get_canvas(request):
+    data = request.data
+    try:
+        room = Room.objects.get(name = data['room_name'])
+    except Room.DoesNotExist:
+        return Response({"message":"Room Does Not Exist"})
+
+    canvas, _ = Canvas.objects.get_or_create(room = room)
+    return Response({"image":canvas.image})
