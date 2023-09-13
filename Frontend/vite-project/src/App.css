@@ -1,5 +1,42 @@
+body {
+    height: 10vh;
+}
+
 #signout-button {
     position: absolute;
     bottom: 15px;
     left: 15px;
+}
+
+#chat-dialog {
+    z-index: 2;
+    width: 80%;
+}
+
+#chat-dialog-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 3;
+    border-radius: 20px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #c300a6;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00a0da;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Room
+from .models import Room, Message
 
 
 class RoomSerializer(serializers.ModelSerializer):

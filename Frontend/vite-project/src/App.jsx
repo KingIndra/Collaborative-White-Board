@@ -7,9 +7,8 @@ import "./App.css"
 import SignIn from "./components/SignIn.jsx"
 import SignUp from "./components/SignUp.jsx"
 import Lobby from "./components/Lobby"
-import Canvas from "./components/Canvas"
 import Routing from "./components/Routing";
-
+import Room from "./screens/Room";
 
 const router = () => createBrowserRouter([
   {
@@ -30,7 +29,7 @@ const router = () => createBrowserRouter([
   },
   {
     path: "room/:room_id",
-    element: <Canvas />,
+    element: <Room />,
   },
 ]);
 

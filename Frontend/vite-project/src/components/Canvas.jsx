@@ -1,13 +1,13 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState, useEffect, useContext } from "react"
 import SignOut from "../buttons/SignOut"
 import "../styles/canvas.css"
+
+import { RoomContext } from "../screens/Room"
 
 
 export default function Canvas() 
 {
-  const room_name = window.location.pathname.split('/')[2]
-  const token = localStorage.getItem('token') + ""
-  axios.defaults.headers.common = {'Authorization': `Token ${token}`}
+  const {username, room_name, drawSocket} = useContext(RoomContext)
 
   const [isDrawing, setIsDrawing] = useState(false)
   const [color, setColor] = useState("#3B3B3B")
@@ -16,18 +16,6 @@ export default function Canvas()
   const ctx = useRef(null)
   const timeout = useRef(null)
   const [cursor, setCursor] = useState("default")
-  const socketRef = useRef(null)
-  const [username, setUsername] = useState("")
-
-  useEffect(() => {
-    axios.post(`user/profile/`)
-    .then(({data}) => {
-      setUsername(data.username)
-    })
-    .catch((err) => {
-      alert("Error Occured")
-    })
-  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -37,7 +25,7 @@ export default function Canvas()
     canvas.width = window.innerWidth
 
     axios.post("chat/room/get_canvas/", {
-      "room_name": room_name
+      "room_name": "Draw_" + room_name
     })
     .then(({data}) => {
       if(data.image) {
@@ -50,17 +38,16 @@ export default function Canvas()
   }, [ctx])
 
   useEffect(() => {
-    socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${room_name}/?token=${token}`)
-    socketRef.current.onopen = (e) => {
+    drawSocket.onopen = (e) => {
       console.log('open', e)
     }
-    socketRef.current.onmessage = ({data}) => {
+    drawSocket.onmessage = ({data}) => {
       updateImage(JSON.parse(data))
     }
-    socketRef.current.onclose = (e) => {
+    drawSocket.onclose = (e) => {
       console.log('closed', e)
     }
-    socketRef.current.onerror = (e) => {
+    drawSocket.onerror = (e) => {
       console.log('failed', e)
     }
   }, [])
@@ -120,7 +107,7 @@ export default function Canvas()
     }
     timeout.current = setTimeout(function () {
       const data = {"message": canvasRef.current.toDataURL("image/png")}
-      socketRef.current.send(JSON.stringify(data))
+      drawSocket.send(JSON.stringify(data))
     }, 400)
   }
 
@@ -182,27 +169,3 @@ export default function Canvas()
     </>
   )
 }
-
-
-// import { makeStyles } from '@mui/styles'
-// const useStyles = makeStyles({
-//   canvascover: {
-//     opacity: "1",
-//   },
-// })
-// const classes = useStyles()
-// className={classes.canvascover + " cursor"}
-
-// import $ from "jquery"
-// $("#circularcursor").show()
-// $(document).ready(function () {
-//   $(document).on("mousemove", function (e) {
-//     $("#circularcursor").css({
-//       left: e.pageX,
-//       top: e.pageY,
-//     })
-//   })
-// })
-// if (!isDrawing) {
-//   return
-// }
