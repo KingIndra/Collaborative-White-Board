@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext } from "react"
 import Canvas from '../components/Canvas'
 import ChatDialog from '../components/ChatDialog'
+import SignOut from "../buttons/SignOut"
 
 export const RoomContext = createContext()
 
@@ -34,6 +35,7 @@ export default function Room()
 
     return <>
         <RoomContext.Provider value={contextObject}>
+          <SignOut />
           <Canvas/>
           <ChatDialog/>
         </RoomContext.Provider>

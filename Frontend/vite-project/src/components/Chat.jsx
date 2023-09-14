@@ -127,7 +127,7 @@ export default function Chat()
 const Message = ({ message }) => {
 
   const {username} = useContext(RoomContext)
-  const isNotMe = message.user !== username
+  const isNotMe = message?.user !== username
 
   return (
     <Box
@@ -145,7 +145,7 @@ const Message = ({ message }) => {
         }}
       >
         <Avatar sx={{ bgcolor: isNotMe ? "primary.main" : "secondary.main" }}>
-          {message.user[0]}
+          {message?.user[0]}
         </Avatar>
         <Paper
           variant="outlined"
@@ -157,7 +157,7 @@ const Message = ({ message }) => {
             borderRadius: isNotMe ? "20px 20px 20px 5px" : "20px 20px 5px 20px",
           }}
         >
-          <Typography variant="body1">{message.text}</Typography>
+          <Typography variant="body1">{message?.text}</Typography>
         </Paper>
       </Box>
     </Box>

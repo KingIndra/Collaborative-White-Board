@@ -13,8 +13,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PaletteIcon from '@mui/icons-material/Palette';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SignOut from '../buttons/SignOut';
 import { useNavigate } from 'react-router-dom';
+
+import { LobbyContext } from '../screens/Home';
+import { useState, useEffect, useContext } from "react"
+
 
 function Copyright(props) {
   return (
@@ -35,20 +38,10 @@ const defaultTheme = createTheme();
 
 export default function Lobby() 
 {
-  axios.defaults.headers.common = {'Authorization': `Token ${localStorage.getItem('token')}`}
+  const {username} = useContext(LobbyContext)
+
   const navigate = useNavigate()
   const [saveCheck, setSaveCheck] = React.useState(false)
-  const [username, setUsername] = React.useState("")
-
-  React.useEffect(() => {
-    axios.post(`user/profile/`)
-    .then(({data}) => {
-      setUsername(data.username)
-    })
-    .catch((err) => {
-      alert("Error Occured")
-    })
-  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -67,7 +60,6 @@ export default function Lobby()
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <SignOut />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect, useContext } from "react"
-import SignOut from "../buttons/SignOut"
 import "../styles/canvas.css"
 
 import { RoomContext } from "../screens/Room"
@@ -125,7 +124,6 @@ export default function Canvas()
 
   return (
     <>
-      <SignOut />
       <h3 id="username-canvas">hello! {username}</h3>
       <div className="canvas-btn">
         <button onClick={getPen} className="btn-width">

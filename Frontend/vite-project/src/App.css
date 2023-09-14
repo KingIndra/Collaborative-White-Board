@@ -1,5 +1,6 @@
 body {
     height: 10vh;
+    overflow-x: hidden;
 }
 
 #signout-button {
@@ -37,6 +38,6 @@ body {
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+/* ::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
+} */
