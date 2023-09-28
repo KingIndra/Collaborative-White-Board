@@ -45,6 +45,7 @@ export default function SignIn()
     })
     .then(({data}) => {
         localStorage.setItem("token", data.token)
+        localStorage.setItem("raw_token", data.raw_token)
         navigate("/lobby")
     })
     .catch((err) => {

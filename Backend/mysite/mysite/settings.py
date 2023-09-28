@@ -6,10 +6,11 @@ SECRET_KEY = 'django-insecure-muzj5-ou42f)0&6*=+5vj=^qd&7^x#5&9u5ygs49%lqr!9+krk
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'http://192.168.1.2:5173'
 ]
 
 INSTALLED_APPS = [
@@ -70,10 +71,15 @@ CHANNEL_LAYERS = {
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'drfcollab',
+        'USER': 'root',
+        'PASSWORD': 'varun@mysql36',
+        'HOST':'localhost',
+        'PORT':'3306',
     }
 }
 

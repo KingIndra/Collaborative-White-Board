@@ -1,15 +1,16 @@
 import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router-dom";
+} from "react-router-dom"
 
 import "./App.css"
 import SignIn from "./screens/SignIn.jsx"
 import SignUp from "./screens/SignUp.jsx"
-import Routing from "./screens/Routing.jsx";
-import Home from "./screens/Home";
-import Room from "./screens/Room";
-// import Lobby from "./components/Lobby"
+import Routing from "./screens/Routing.jsx"
+import Home from "./screens/Home"
+import Room from "./screens/Room"
+import VideoChat from "./webrtc/VideoChat"
+
 
 const router = () => createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = () => createBrowserRouter([
   {
     path: "room/:room_id",
     element: <Room />,
+  },
+  {
+    path: "rtc/join",
+    element: <VideoChat />,
   },
 ]);
 

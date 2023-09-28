@@ -5,8 +5,8 @@ import SignOut from "../buttons/SignOut"
 
 export const RoomContext = createContext()
 
-export default function Room() 
-{   
+export default function Room() {   
+  
     const room_name = window.location.pathname.split('/')[2]
     const token = localStorage.getItem('token')
     const socketURL = "ws://127.0.0.1:8000/ws/chat/"

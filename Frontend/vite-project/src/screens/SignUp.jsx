@@ -47,6 +47,7 @@ export default function SignUp()
     })
     .then(({data}) => {
       localStorage.setItem("token", data.token)
+      localStorage.setItem("raw_token", data.raw_token)
       console.log(data.token)
       navigate("/lobby")
     })
